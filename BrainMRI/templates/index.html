@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="全脑脑纤维生成平台" content="width=device-width, initial-scale=1.0">
+        <title>全脑脑纤维生成平台</title>
+        <link rel="shortcut icon" href="ayyiz-jkmph-001.ico">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background: url("{{ url_for('static', filename='pg.png') }}");
+                margin: 0;
+                padding: 0;
+            }
+
+
+            header {
+                height: 100px;
+                color: white;
+                padding: 10px;
+                text-align: center;
+                display: flex;
+                align-items: center;
+                /* color: rgba(0, 20, 56); */
+            }
+            header h2{
+                font-weight: 100;
+                font-size: 20px;
+                letter-spacing: 2px;
+            }
+            .logo-container {
+                display: flex;
+                align-items: center;
+                margin-left: 25px;
+            }
+            .logo-container img {
+                width: 80px;
+                height: 80px;
+                border-radius: 40px;
+            }
+            .title-container {
+                display: flex;
+                flex-direction: column;
+                margin-left: 15px;
+            }
+            .container {
+                display: flex;
+                height: calc(100vh - 50px); /* 减去标题栏的高度 */
+            }
+
+
+
+            nav {
+                width: 200px;
+                border-radius: 5px;
+                margin: 5px;
+                margin-left: 30px;
+                margin-bottom: 40px;
+                background-color:  rgba(6, 30, 54, 0.6);
+                padding: 15px;
+                list-style-type: none;
+            }
+            nav a {
+                display: block;
+                background-color: #061E36;
+                padding: 8px;
+                color: white;
+                border-radius: 5px;
+                text-decoration: none;
+                margin: 5px 0;
+                transition: background-color 0.3s ease, color 0.3s ease;
+
+            }
+            nav a:hover , nav .active{
+                background-color: rgba(0, 20, 56);
+                color: aquamarine;
+            }
+
+
+
+            main {
+                flex: 1; /* 使内容栏自适应宽度 */
+                padding: 15px;
+                margin: 5px;
+                margin-left: 20px;
+                margin-right: 50px;
+                margin-bottom: 40px;
+                border-radius: 5px;
+                background-color: rgba(6, 30, 54, 0.6);
+            }
+            main h3{
+                color: aquamarine;
+                font-weight: 100;
+                margin-top: 10px;
+                margin-left: 10px;
+                letter-spacing: 1px;
+            }
+            main h3::before{
+                position: relative;
+                display: inline-block;
+                content: "";
+                margin-right: 5px;
+                margin-left: 5px;
+                width: 4px;
+                top: 3px;
+                height: 20px;
+                border-radius: 5px;
+                background-color: aquamarine;
+            }
+            #upload button{
+                float: right;
+                background-color: aquamarine;
+                color: white;
+                width: 80px;
+                height: 30px;
+                border-radius: 5px;
+                transition: background-color 0.3s ease, color 0.3s ease;
+                border: 0;
+                margin-left: 10px;
+            }
+
+            .step {
+                flex-shrink: 0;
+                position: relative;
+                cursor: pointer;
+                padding: 5px;
+                margin: 5px;
+                width: 390px;
+                border: 1px solid #ccc;
+                display: inline-block;
+                text-align: center;
+                color: #ccc;
+                border-radius: 5px;
+                transition: background-color 0.3s ease, color 0.3s ease;
+            }
+            .step:hover{
+                color: aquamarine;
+                background-color: #061E36;
+            }
+            .selected {
+                color: aquamarine;
+                background-color: #061E36;
+            }
+            .selected::after{
+                position: absolute;
+                top: 2px;
+                content: '\2713';
+                height: 5px;
+                left: 370px;
+                margin-right: 5px;
+            }
+
+            #Execute button{
+                display: block;
+                background-color: aquamarine;
+                color: white;
+                width: 160px;
+                height: 30px;
+                border-radius: 5px;
+                transition: background-color 0.3s ease, color 0.3s ease;
+                border: 0;
+                margin: 20px auto;
+            }
+            #upload button:hover, #Execute button:hover{
+                background-color: rgba(0, 20, 56);
+                color: aquamarine;
+            }
+            #inputBlock {
+                /* display: none; */
+                margin: 0 auto;
+                margin-top: 10px;
+                height: 40px;
+                padding: 20px;
+                border: 2px solid aquamarine;
+                border-radius: 5px;
+                animation: fadeIn 0.5s;
+                width: 90%;
+            }
+            #filePath{
+                height: 20px;
+                width: 400px;
+                border-radius: 5px;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+
+            #progress-container{
+                display: none;
+                margin: 0 auto;
+                animation: fadeIn 0.5s;
+            }
+            #progress-bar{
+                display: block;
+                width: 800px;
+                height: 40px;
+                margin: 0 auto;
+                text-align: center;
+            }
+            #progress-text{
+                display: block;
+                text-align: center;
+                margin:  0 auto;
+                color: aquamarine;
+                letter-spacing: 2px;
+            }
+            progress::-webkit-progress-value,
+            progress::-moz-progress-bar {
+                background-color: blue;
+            }
+
+            .process{
+                display: inline-block;
+                width: 500px;
+            }
+            #guochen > div{
+                display: block;
+                height: 400px;
+            }
+            .guochen{
+                display: block;
+                margin: 10px;
+                width: 90%;
+                height: 30px;
+            }
+            .guochen p{
+                display: block;
+                height: 30px;
+                float: left;
+                line-height: 30px;
+                margin: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div style="width: 200px; height: 200px;position: absolute; left: -15px;top: -40px; border-radius: 100%; background-color: rgba(0, 20, 56, 0.4);z-index: -2;"></div>
+        <div style="width: 400px; height: 400px;position: absolute; left: -115px;top: -140px; border-radius: 100%; background-color: rgba(0, 20, 56, 0.2);z-index: -2;"></div>
+        <header>
+            <!-- <div style="width: 30%; height: 120px;position: absolute; left: -50px; border-radius:  4% / 50%; background-color: rgba(0, 20, 56, 0.4);"></div>
+            <div style="width: 50%; height: 120px;position: absolute; left: -50px; border-radius:  2% / 50%; background-color: rgba(0, 20, 56, 0.2);"></div> -->
+            <div class="logo-container" style="position: absolute;">
+                <div style="width: 100px;height: 100px;border-radius: 50px;background-color: rgba(0, 20, 56, 0.6);">
+                    <img src="{{url_for('static', filename = 'OIG4.jpg')}}" alt="" style=" float: left; width: 80px;height: 80px;border-radius: 40px;margin-left: 10px;margin-top: 10px;">
+                </div>
+                <div class="title-container" style="float: left;height: 100%;">
+                    <h2 style="float: left; height: 40%; margin-left: 12px;margin-top: 5px;margin-bottom: 0;text-align: left;">全脑脑纤维生成平台</h2>
+                    <h2 style="float: left; height: 40%; margin-left: 16px;margin-top: 5px;margin-bottom: 0;text-align: left;font-size: 12px;">Brain Fiber Generation Platform</h2>
+                </div>
+            </div>
+        </header>
+
+        <div class="container">
+            <nav>
+                <h3 style="color: white; font-weight: 200; letter-spacing: 2px; margin-left: 10px;">导航栏</h3>
+                <div class="split-line" style="height: 15px; border-top: 3px solid aquamarine; border-radius: 1px;"></div>
+                <li id="button_section1"><a href="#" onclick="showContent('section1')" class="active">Generate Fiber</a></li>
+            </nav>
+            <main>
+                <div id="upload">
+                    <!-- <button onclick="showInputBlock()">上传文件</button> -->
+                    <h3>Please enter the root path of your data: </h3>
+                    <div id="inputBlock">
+                        <input type="text" id="filePath" placeholder="Use absolute path">
+                        <button id="clearButton" onclick="clearPath()">Clear</button>
+                        <button onclick="submitPath()">Submit</button>
+                    </div>
+                </div>
+                <div>
+                    <h3>Optional steps: </h3>
+                    <div id="stepsContainer" style="display: flex; width: 92%; height: 280px; flex-direction: column; flex-wrap: wrap;margin: 0 auto; margin-top: 20px; border: 3px solid aquamarine; border-radius: 5px;padding: 10px;">
+                        <div class="step" onclick="toggleStep(this)" data-step="SourceDataPreprocess">SourceDataPreprocess</div>
+                        <div class="step" onclick="toggleStep(this)" data-step="RegFS2DTI">RegFS2DTI</div>
+                        <div class="step" onclick="toggleStep(this)" data-step="ACTPreprocess">ACTPreprocess</div>
+                        <div class="step" onclick="toggleStep(this)" data-step="FODestimate">FODestimate</div>
+                        <div class="step" onclick="toggleStep(this)" data-step="GenTracts_ACTseedGMWMI">GenTracts_ACTseedGMWMI</div>
+                        <div class="step" onclick="toggleStep(this)" data-step="RegT12MNI152">RegT12MNI152</div>
+                        <div class="step" onclick="toggleStep(this)" data-step="GenTensorInfo">GenTensorInfo</div>
+                        <div class="step" onclick="toggleStep(this)" data-step="GenRegionConnectome">GenRegionConnectome</div>
+                        <div class="step" onclick="toggleStep(this)" data-step="GenLobeConnectome">GenLobeConnectome</div>
+                        <div class="step" onclick="toggleStep(this)" data-step="GenRegionFibers">GenRegionFibers</div>
+                        <div class="step" onclick="toggleStep(this)" data-step="GenSurface">GenSurface</div>
+                    </div>
+                </div>
+
+                <div id="Execute" style="display: block; width: 100%;">
+                    <button id="executeProcessing">Execute</button>
+                </div>
+                <div id="progress-container" style="margin-top: 20px;">
+                    <div>
+                        <progress id="progress-bar" value="0" max="100"></progress>
+                    </div>
+                    <span id="progress-text">0/13</span>
+                </div>
+            </main>
+        </div>
+
+    </body>
+    <script>
+        function showContent(sectionId) {
+            // Remove 'active' class from all links
+            var links = document.querySelectorAll('nav a');
+            links.forEach(function(link) {
+                link.classList.remove('active');
+            });
+  
+             // 添加 'active' 类到选中的链接
+            var selectedLink = document.querySelector('#button_' + sectionId + ' a');
+            if (selectedLink) {
+                selectedLink.classList.add('active');
+            }
+  
+            // Hide all content divs
+            var contentDivs = document.querySelectorAll('.content > div');
+            contentDivs.forEach(function(div) {
+                div.style.display = 'none';
+                div.style.opacity  = '0';
+            });
+  
+            // Show the selected content div
+            var selectedDiv = document.getElementById(sectionId);
+            if (selectedDiv) {
+                selectedDiv.style.display = 'block';
+                setInterval(() => {
+                  selectedDiv.style.opacity = '1';
+                }, 100);
+            }
+        }
+    </script>
+    <script>
+        function showInputBlock() {
+            document.getElementById("inputBlock").style.display = "block";
+        }
+
+        let datadir = ""; // 定义全局变量以跟踪目录
+
+        function submitPath() {
+            const filePath = document.getElementById("filePath").value;
+            if (filePath) {
+                fetch('/upload', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ path: filePath })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    datadir = data.datadir; // 更新全局变量
+                })
+                .catch(error => console.error('Error:', error));
+            }else{
+                alert('No path input.');
+            }
+        }
+        if(datadir == ""){
+            document.getElementById("clearButton").ariaDisabled = true;
+        }
+        function clearPath() {
+            if (datadir) {
+                fetch('/clear', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    datadir = ""; // 清空全局变量
+                    document.getElementById("filePath").value = ''; // 清空输入框
+                })
+                .catch(error => console.error('Error:', error));
+            } else {
+                alert('No content to clear.');
+            }
+        }
+
+    </script>
+    <script>
+        document.getElementById('executeProcessing').addEventListener('click', function() {
+            const command = 'python upload.py'; // 可以修改command执行不同的代码
+            // document.getElementById('default_text').style.display = "none";
+            if(datadir){
+                document.getElementById('progress-container').style.display = "block";
+                fetch('/runcmd', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ command: command })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('网络似乎还没有准备好...');
+                }
+                return response.text();
+            })
+            .then(data => {
+            console.log(data);
+            alert('脚本成功运行！');
+            })
+            .catch(error => {
+                console.error('There was a problem with your fetch operation:', error);
+                alert('已有实验在运行！');
+
+            });
+            }else{
+                alert('Empty data path!');
+            }
+        });
+    </script>
+    <script>
+        document.getElementById('executeProcessing').addEventListener('click', updateProgress);
+
+        // 重置进度条和进度文本
+        document.getElementById('progress-bar').value = 0;
+        document.getElementById('progress-text').textContent = '0/13';
+
+        function updateProgress() {
+            fetch('/get-progress')
+                .then(response => response.json())
+                .then(data => {
+                    const [completed, total] = data.progress.split('/').map(Number);
+                    const percent = (completed / total) * 100;
+                    document.getElementById('progress-bar').value = percent;
+                    document.getElementById('progress-text').textContent = `${completed}/${total}`;
+                    // if (completed < total) {
+                    //     setTimeout(updateProgress, 1000);
+                    // }
+                    setTimeout(updateProgress, 1000);
+                })
+                .catch(error => {
+                    console.error('Error fetching progress:', error);
+                });
+        }
+
+    </script>
+
+
+    <script>
+            
+        function toggleStep(element) {
+            element.classList.toggle('selected');
+        }
+
+        function runSteps() {
+            const selectedSteps = Array.from(document.querySelectorAll('.step.selected')).map(el => el.getAttribute('data-step'));
+            // const rootSubject = document.getElementById('root_subject').value;
+            fetch('/select', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({selected_steps: selectedSteps })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.status);
+            });
+        }
+    </script>
+</html>

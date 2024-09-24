@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="全脑脑纤维生成平台" content="width=device-width, initial-scale=1.0">
+        <title>全脑脑纤维生成平台</title>
+        <link rel="shortcut icon" href="ayyiz-jkmph-001.ico">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background: url(pg.png);
+                margin: 0;
+                padding: 0;
+            }
+
+
+            header {
+                height: 100px;
+                color: white;
+                padding: 10px;
+                text-align: center;
+                display: flex;
+                align-items: center;
+                /* color: rgba(0, 20, 56); */
+            }
+            header h2{
+                font-weight: 100;
+                font-size: 20px;
+                letter-spacing: 2px;
+            }
+            .logo-container {
+                display: flex;
+                align-items: center;
+                margin-left: 25px;
+            }
+            .logo-container img {
+                width: 80px;
+                height: 80px;
+                border-radius: 40px;
+            }
+            .title-container {
+                display: flex;
+                flex-direction: column;
+                margin-left: 15px;
+            }
+            .container {
+                display: flex;
+                height: calc(100vh - 50px); /* 减去标题栏的高度 */
+            }
+
+
+
+            nav {
+                width: 200px;
+                border-radius: 5px;
+                margin: 5px;
+                margin-left: 30px;
+                margin-bottom: 40px;
+                background-color:  rgba(6, 30, 54, 0.6);
+                padding: 15px;
+                list-style-type: none;
+            }
+            nav a {
+                display: block;
+                background-color: #061E36;
+                padding: 8px;
+                color: white;
+                border-radius: 5px;
+                text-decoration: none;
+                margin: 5px 0;
+                transition: background-color 0.3s ease, color 0.3s ease;
+
+            }
+            nav a:hover , nav .active{
+                background-color: rgba(0, 20, 56);
+                color: aquamarine;
+            }
+
+
+
+            main {
+                flex: 1; /* 使内容栏自适应宽度 */
+                padding: 15px;
+                margin: 5px;
+                margin-left: 20px;
+                margin-right: 50px;
+                margin-bottom: 40px;
+                border-radius: 5px;
+                background-color: rgba(6, 30, 54, 0.6);
+            }
+            #upload h3{
+                color: aquamarine;
+                font-weight: 100;
+                margin-top: 0px;
+                letter-spacing: 1px;
+            }
+            #upload button{
+                float: right;
+                background-color: aquamarine;
+                color: white;
+                width: 80px;
+                height: 30px;
+                border-radius: 5px;
+                transition: background-color 0.3s ease, color 0.3s ease;
+                border: 0;
+                margin-left: 10px;
+            }
+            #Execute button{
+                display: block;
+                background-color: aquamarine;
+                color: white;
+                width: 160px;
+                height: 30px;
+                border-radius: 5px;
+                transition: background-color 0.3s ease, color 0.3s ease;
+                border: 0;
+                margin: 20px auto;
+            }
+            #upload button:hover, #Execute button:hover{
+                background-color: rgba(0, 20, 56);
+                color: aquamarine;
+            }
+            #inputBlock {
+                /* display: none; */
+                margin-top: 10px;
+                height: 80px;
+                padding: 20px;
+                border: 2px dashed aquamarine;
+                border-radius: 5px;
+                animation: fadeIn 0.5s;
+            }
+            #filePath{
+                height: 20px;
+                width: 400px;
+                border-radius: 5px;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+
+            #progress-container{
+                display: none;
+                margin: 0 auto;
+                animation: fadeIn 0.5s;
+            }
+            #progress-bar{
+                display: block;
+                width: 800px;
+                height: 40px;
+                margin: 0 auto;
+                text-align: center;
+            }
+            progress::-webkit-progress-value {
+                background-color: #FBB748;
+            }
+            #progress-text{
+                display: block;
+                text-align: center;
+                margin:  0 auto;
+                color: aquamarine;
+                letter-spacing: 2px;
+            }
+        </style>
+    </head>
+    <body>
+        <div style="width: 200px; height: 200px;position: absolute; left: -15px;top: -40px; border-radius: 100%; background-color: rgba(0, 20, 56, 0.4);z-index: -2;"></div>
+        <div style="width: 400px; height: 400px;position: absolute; left: -115px;top: -140px; border-radius: 100%; background-color: rgba(0, 20, 56, 0.2);z-index: -2;"></div>
+        <header>
+            <!-- <div style="width: 30%; height: 120px;position: absolute; left: -50px; border-radius:  4% / 50%; background-color: rgba(0, 20, 56, 0.4);"></div>
+            <div style="width: 50%; height: 120px;position: absolute; left: -50px; border-radius:  2% / 50%; background-color: rgba(0, 20, 56, 0.2);"></div> -->
+            <div class="logo-container" style="position: absolute;">
+                <div style="width: 100px;height: 100px;border-radius: 50px;background-color: rgba(0, 20, 56, 0.6);">
+                    <img src="OIG4.jpg" alt="" style=" float: left; width: 80px;height: 80px;border-radius: 40px;margin-left: 10px;margin-top: 10px;">
+                </div>
+                <div class="title-container" style="float: left;height: 100%;">
+                    <h2 style="float: left; height: 40%; margin-left: 12px;margin-top: 5px;margin-bottom: 0;text-align: left;">全脑脑纤维生成平台</h2>
+                    <h2 style="float: left; height: 40%; margin-left: 16px;margin-top: 5px;margin-bottom: 0;text-align: left;font-size: 12px;">Brain Fiber Generation Platform</h2>
+                </div>
+            </div>
+        </header>
+
+        <div class="container">
+            <nav>
+                <h3 style="color: white; font-weight: 200; letter-spacing: 2px; margin-left: 10px;">导航栏</h3>
+                <div class="split-line" style="height: 15px; border-top: 3px solid aquamarine; border-radius: 1px;"></div>
+                <li id="button_section1"><a href="#" onclick="showContent('section1')" class="active">Generate Fiber</a></li>
+            </nav>
+            <main>
+                <div id="upload">
+                    <!-- <button onclick="showInputBlock()">上传文件</button> -->
+
+                    <div id="inputBlock">
+                        <h3>Please enter the root path of your data</h3>
+                        <input type="text" id="filePath" placeholder="Use absolute path">
+                        <button id="clearButton" onclick="clearPath()">Clear</button>
+                        <button onclick="submitPath()">Submit</button>
+                    </div>
+                </div>
+                <div id="Execute" style="display: block; width: 100%;">
+                    <button id="executeProcessing">Execute</button>
+                </div>
+                <div id="progress-container" style="margin-top: 20px;">
+                    <div>
+                        <progress id="progress-bar" value="0" max="100"></progress>
+                    </div>
+                    <span id="progress-text">0/13</span>
+                </div>
+            </main>
+        </div>
+
+    </body>
+    <script>
+        function showContent(sectionId) {
+            // Remove 'active' class from all links
+            var links = document.querySelectorAll('nav a');
+            links.forEach(function(link) {
+                link.classList.remove('active');
+            });
+  
+             // 添加 'active' 类到选中的链接
+            var selectedLink = document.querySelector('#button_' + sectionId + ' a');
+            if (selectedLink) {
+                selectedLink.classList.add('active');
+            }
+  
+            // Hide all content divs
+            var contentDivs = document.querySelectorAll('.content > div');
+            contentDivs.forEach(function(div) {
+                div.style.display = 'none';
+                div.style.opacity  = '0';
+            });
+  
+            // Show the selected content div
+            var selectedDiv = document.getElementById(sectionId);
+            if (selectedDiv) {
+                selectedDiv.style.display = 'block';
+                setInterval(() => {
+                  selectedDiv.style.opacity = '1';
+                }, 100);
+            }
+        }
+    </script>
+    <script>
+        function showInputBlock() {
+            document.getElementById("inputBlock").style.display = "block";
+        }
+
+        let datadir = ""; // 定义全局变量以跟踪目录
+
+        function submitPath() {
+            const filePath = document.getElementById("filePath").value;
+            if (filePath) {
+                fetch('/nb58bc0be2b9c644e1a1eccecf6f4b55dd18f3d70e500/proxy/5000/upload', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ path: filePath })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    datadir = data.datadir; // 更新全局变量
+                })
+                .catch(error => console.error('Error:', error));
+            }else{
+                alert('No path input.');
+            }
+        }
+        if(datadir == ""){
+            document.getElementById("clearButton").ariaDisabled = true;
+        }
+        function clearPath() {
+            if (datadir) {
+                fetch('/nb58bc0be2b9c644e1a1eccecf6f4b55dd18f3d70e500/proxy/5000/clear', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    datadir = ""; // 清空全局变量
+                    document.getElementById("filePath").value = ''; // 清空输入框
+                })
+                .catch(error => console.error('Error:', error));
+            } else {
+                alert('No content to clear.');
+            }
+        }
+
+    </script>
+    <script>
+        document.getElementById('executeProcessing').addEventListener('click', function() {
+            const command = 'python BrainMRIProcessing.py'; // 可以修改command执行不同的代码
+            // document.getElementById('default_text').style.display = "none";
+            if(datadir){
+                document.getElementById('progress-container').style.display = "block";
+                fetch('/nb58bc0be2b9c644e1a1eccecf6f4b55dd18f3d70e500/proxy/3000/runcmd', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ command: command })
+            })
+            .then(response => {
+            if (!response.ok) {
+                throw new Error('网络似乎还没有准备好...');
+            }
+            return response.text();
+            })
+            .then(data => {
+            console.log(data);
+            alert('脚本成功运行！');
+            })
+            .catch(error => {
+                console.error('There was a problem with your fetch operation:', error);
+                alert('已有实验在运行！');
+
+            });
+            }else{
+                alert('Empty data path!');
+            }
+        });
+    </script>
+    <script>
+        function updateProgress() {
+            fetch('/nb58bc0be2b9c644e1a1eccecf6f4b55dd18f3d70e500/proxy/5000/get-progress')
+                .then(response => response.json())
+                .then(data => {
+                    const [completed, total] = data.progress.split('/').map(Number);
+                    const percent = (completed / total) * 100;
+                    document.getElementById('progress-bar').value = percent;
+                    document.getElementById('progress-text').textContent = `${completed}/${total}`;
+                    if (completed < total) {
+                        setTimeout(updateProgress, 1000);
+                    }
+                });
+        }
+    </script>
+
+</html>

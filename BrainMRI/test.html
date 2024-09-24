@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fiber Generation</title>
+    <style>
+        .step {
+            cursor: pointer;
+            padding: 5px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            display: inline-block;
+        }
+        .selected {
+            background-color: #d3d3d3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Select Steps to Run</h1>
+    <div id="stepsContainer">
+        <div class="step" onclick="toggleStep(this)" data-step="SourceDataPreprocess">SourceDataPreprocess</div>
+        <div class="step" onclick="toggleStep(this)" data-step="RegFS2DTI">RegFS2DTI</div>
+        <div class="step" onclick="toggleStep(this)" data-step="ACTPreprocess">ACTPreprocess</div>
+        <div class="step" onclick="toggleStep(this)" data-step="FODestimate">FODestimate</div>
+        <div class="step" onclick="toggleStep(this)" data-step="GenTracts_ACTseedGMWMI">GenTracts_ACTseedGMWMI</div>
+        <div class="step" onclick="toggleStep(this)" data-step="RegT12MNI152">RegT12MNI152</div>
+        <div class="step" onclick="toggleStep(this)" data-step="GenTensorInfo">GenTensorInfo</div>
+        <div class="step" onclick="toggleStep(this)" data-step="GenRegionConnectome">GenRegionConnectome</div>
+        <div class="step" onclick="toggleStep(this)" data-step="GenLobeConnectome">GenLobeConnectome</div>
+        <div class="step" onclick="toggleStep(this)" data-step="GenRegionFibers">GenRegionFibers</div>
+        <div class="step" onclick="toggleStep(this)" data-step="GenSurface">GenSurface</div>
+    </div>
+
+    <button type="button" onclick="runSteps()">Run</button>
+
+    <script>
+        
+        function toggleStep(element) {
+            element.classList.toggle('selected');
+        }
+
+        function runSteps() {
+            const selectedSteps = Array.from(document.querySelectorAll('.step.selected')).map(el => el.getAttribute('data-step'));
+            // const rootSubject = document.getElementById('root_subject').value;
+            fetch('/select', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({selected_steps: selectedSteps })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.status);
+            });
+        }
+    </script>
+</body>
+</html>
